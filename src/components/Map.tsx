@@ -1,36 +1,24 @@
-import React, {
-  Children,
-  cloneElement,
-  FC,
-  isValidElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, {FC} from 'react';
+import GoogleMapReact from 'google-map-react';
+import {getApiKey} from '../services/networking/getApiKey';
 
-interface MapProps extends google.maps.MapOptions {
+interface Props {
   style: {[key: string]: string};
-  onClick?: (e: google.maps.MapMouseEvent) => void;
 }
 
-export const Map: FC<MapProps> = ({style, children, ...options}) => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map>();
-
-  useEffect(() => {
-    if (mapRef.current && !map) {
-      setMap(new window.google.maps.Map(mapRef.current, {}));
-    }
-  }, [mapRef, map]);
-
+export const Map: FC<Props> = ({style, children}) => {
   return (
-    <>
-      <div ref={mapRef} style={style} />
-      {Children.map(children, (child) => {
-        if (isValidElement(child)) {
-          return cloneElement(child, {map});
-        }
-      })}
-    </>
+    <GoogleMapReact
+      style={style}
+      yesIWantToUseGoogleMapApiInternals
+      bootstrapURLKeys={{key: getApiKey()}}
+      defaultZoom={3}
+      defaultCenter={{
+        lat: 0,
+        lng: 0,
+      }}
+    >
+      {children}
+    </GoogleMapReact>
   );
 };

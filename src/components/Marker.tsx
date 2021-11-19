@@ -1,25 +1,10 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
+import {LaunchJSON} from '../services/api/models/LaunchesJSON';
+import RoomIcon from '@mui/icons-material/Room';
+interface Props {
+  lat: number;
+  lng: number;
+  launch: LaunchJSON;
+}
 
-export const Marker: FC<google.maps.MarkerOptions> = (options) => {
-  const [marker, setMarker] = useState<google.maps.Marker>();
-
-  useEffect(() => {
-    if (!marker) {
-      setMarker(new google.maps.Marker());
-    }
-
-    return () => {
-      if (marker) {
-        marker.setMap(null);
-      }
-    };
-  }, [marker]);
-
-  useEffect(() => {
-    if (marker) {
-      marker.setOptions(options);
-    }
-  }, [marker, options]);
-
-  return null;
-};
+export const Marker: FC<Props> = ({launch}) => <RoomIcon color={'error'} />;

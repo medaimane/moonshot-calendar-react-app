@@ -26,21 +26,13 @@ export function HomeScreen() {
     <RemoteData
       viewState={viewState}
       renderData={() => (
-        <Map
-          center={{
-            lat: 0,
-            lng: 0,
-          }}
-          zoom={3}
-          style={{flexGrow: '1', height: '100%'}}
-        >
+        <Map style={{flexGrow: '1', width: '80%'}}>
           {launches.map((launch, idx) => (
             <Marker
               key={'Marker_' + idx}
-              position={{
-                lat: Number(launch.pad.latitude),
-                lng: Number(launch.pad.longitude),
-              }}
+              lat={Number(launch.pad.latitude)}
+              lng={Number(launch.pad.longitude)}
+              launch={launch}
             />
           ))}
         </Map>

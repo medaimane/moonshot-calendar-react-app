@@ -1,1 +1,3 @@
-describe('homeSelectors', () => {});
+describe('homeSelectors', () => {
+  // TODO: Add unit tests
+});
